@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,11 +15,24 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NightOwlCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-sX-Ri1">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
+                                        <rect key="frame" x="75" y="316.66666666666669" width="264" height="263.00000000000006"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="9up-Mj-VgS" firstAttribute="centerX" secondItem="uYb-sX-Ri1" secondAttribute="centerX" id="8EY-gm-LDf"/>
+                                    <constraint firstItem="9up-Mj-VgS" firstAttribute="centerY" secondItem="uYb-sX-Ri1" secondAttribute="centerY" id="dnG-6z-Bhm"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfX-sf-z1s" userLabel="btnTutorial">
-                                <rect key="frame" x="5" y="11" width="50" height="50"/>
+                                <rect key="frame" x="5" y="49" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Tp6-fU-MMc"/>
                                     <constraint firstAttribute="width" constant="50" id="tks-Gj-8H7"/>
@@ -30,7 +43,7 @@
                                 </connections>
                             </button>
                             <view autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="srB-Zn-TsA" userLabel="viewSplit">
-                                <rect key="frame" x="269" y="2" width="104" height="59"/>
+                                <rect key="frame" x="308" y="40" width="104" height="59"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Split Video?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9N-To-lCD">
                                         <rect key="frame" x="2" y="2" width="100" height="22"/>
@@ -41,7 +54,7 @@
                                         <size key="shadowOffset" width="2" height="-1"/>
                                     </label>
                                     <switch opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zBH-L7-Yzs">
-                                        <rect key="frame" x="27.5" y="26" width="51" height="31"/>
+                                        <rect key="frame" x="27.666666666666686" y="26" width="51" height="31"/>
                                         <connections>
                                             <action selector="swtChangeAct:" destination="BYZ-38-t0r" eventType="valueChanged" id="oQ2-U0-iiM"/>
                                         </connections>
@@ -57,26 +70,26 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="YeD-XY-073" userLabel="viewTutorial">
-                                <rect key="frame" x="10" y="71" width="355" height="506"/>
+                                <rect key="frame" x="10" y="109" width="394" height="663"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vor-4z-GY2">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="458"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="615"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgn-L1-16b">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="472.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="433.66666666666669"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5O-j4-rzN" userLabel="viewTut1">
-                                                        <rect key="frame" x="2" y="2" width="351" height="138"/>
+                                                        <rect key="frame" x="2" y="2" width="390" height="118.66666666666667"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="split_video_switch" translatesAutoresizingMaskIntoConstraints="NO" id="IJd-qC-O9o">
-                                                                <rect key="frame" x="0.0" y="44" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="34.333333333333343" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="6ol-KT-D2R"/>
                                                                     <constraint firstAttribute="height" constant="50" id="aRB-wo-mym"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ft-05-UTA" userLabel="lblTut1">
-                                                                <rect key="frame" x="54" y="2" width="295" height="134"/>
+                                                                <rect key="frame" x="54" y="2" width="334" height="114.66666666666667"/>
                                                                 <string key="text">Turn on this switch will allow your video to be split to small videos.  These small videos will be automatically saved to your Camera Roll while the recording is in progress. It would help to make sure your videos are saved during an incident.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -95,17 +108,17 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Vt-ef-BZU" userLabel="viewTut2">
-                                                        <rect key="frame" x="2" y="142" width="351" height="138"/>
+                                                        <rect key="frame" x="2" y="122.66666666666667" width="390" height="137.66666666666663"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_circle_logo" translatesAutoresizingMaskIntoConstraints="NO" id="0ju-ij-jfo">
-                                                                <rect key="frame" x="0.0" y="44" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="44.000000000000028" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="QkB-Po-D1h"/>
                                                                     <constraint firstAttribute="width" constant="50" id="zuD-Qm-Qv9"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya1-SK-lBP" userLabel="lblTut2">
-                                                                <rect key="frame" x="54" y="2" width="295" height="134"/>
+                                                                <rect key="frame" x="54" y="2" width="334" height="133.66666666666666"/>
                                                                 <mutableString key="text">Tap on the red circle to start recording.  The screen will be covered by a black screen. A logo will blink on the black screen for 3 seconds to indicate that the recording goes well. You can freely to touch on the screen without interrupting recording or turning the light on.</mutableString>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -124,17 +137,17 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJc-Je-ukW" userLabel="viewTut3">
-                                                        <rect key="frame" x="2" y="282" width="351" height="99.5"/>
+                                                        <rect key="frame" x="2" y="262.33333333333331" width="390" height="80.666666666666686"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo" translatesAutoresizingMaskIntoConstraints="NO" id="gPV-ra-at6">
-                                                                <rect key="frame" x="0.0" y="25" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="15.333333333333371" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="dvW-YY-YCj"/>
                                                                     <constraint firstAttribute="height" constant="50" id="mn6-89-RCf"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="la4-gM-KjC" userLabel="lblTut3">
-                                                                <rect key="frame" x="54" y="2" width="295" height="95.5"/>
+                                                                <rect key="frame" x="54" y="2" width="334" height="76.666666666666671"/>
                                                                 <string key="text">To stop recording, double tap on the black screen then tap on the blinking logo 5 times in 5 secs. The recording will remain in progress if you do not tap correctly.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -153,17 +166,17 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DM7-7M-lR1" userLabel="viewTut4">
-                                                        <rect key="frame" x="2" y="383.5" width="351" height="42.5"/>
+                                                        <rect key="frame" x="2" y="345" width="390" height="42.333333333333314"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="handpoint_up" translatesAutoresizingMaskIntoConstraints="NO" id="qCx-y8-giz">
-                                                                <rect key="frame" x="0.0" y="-3.5" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="-3.6666666666666856" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="DGe-37-BvA"/>
                                                                     <constraint firstAttribute="width" constant="50" id="V3x-LX-jXR"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to change the camera from back to front or vice versa." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCX-0u-7sU" userLabel="lblTut4">
-                                                                <rect key="frame" x="54" y="2" width="295" height="38.5"/>
+                                                                <rect key="frame" x="54" y="2" width="334" height="38.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -181,17 +194,17 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8S-qj-s50" userLabel="viewTut5">
-                                                        <rect key="frame" x="2" y="428" width="351" height="42.5"/>
+                                                        <rect key="frame" x="2" y="389.33333333333331" width="390" height="42.333333333333314"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="handpoint_left_rigt" translatesAutoresizingMaskIntoConstraints="NO" id="uQa-MY-LeO">
-                                                                <rect key="frame" x="0.0" y="-3.5" width="50" height="50"/>
+                                                                <rect key="frame" x="0.0" y="-3.6666666666666288" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="bPq-Z8-Xa9"/>
                                                                     <constraint firstAttribute="width" constant="50" id="kuW-Mq-Dk1"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe left to zoom in  Swipe right to zoom out." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRT-Vj-2lS" userLabel="lblTut5">
-                                                                <rect key="frame" x="54" y="2" width="295" height="38.5"/>
+                                                                <rect key="frame" x="54" y="2" width="334" height="38.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -239,10 +252,10 @@
                                         </constraints>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Vx-Yv-Tv3" userLabel="viewGotit">
-                                        <rect key="frame" x="0.0" y="460" width="355" height="46"/>
+                                        <rect key="frame" x="0.0" y="617" width="394" height="46"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbI-mi-LA7">
-                                                <rect key="frame" x="127.5" y="8" width="100" height="30"/>
+                                                <rect key="frame" x="147" y="8" width="100" height="30"/>
                                                 <color key="backgroundColor" red="0.20857585370000001" green="0.76687471149999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Hvy-vQ-a1q"/>
@@ -281,7 +294,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiD-AU-smD">
-                                <rect key="frame" x="157.5" y="587" width="60" height="60"/>
+                                <rect key="frame" x="177" y="782" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="g3G-FI-vJd"/>
@@ -296,25 +309,13 @@
                                     <action selector="captureWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qRP-BL-8u9"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-sX-Ri1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
-                                        <rect key="frame" x="55.5" y="202" width="264" height="263"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="9up-Mj-VgS" firstAttribute="centerX" secondItem="uYb-sX-Ri1" secondAttribute="centerX" id="8EY-gm-LDf"/>
-                                    <constraint firstItem="9up-Mj-VgS" firstAttribute="centerY" secondItem="uYb-sX-Ri1" secondAttribute="centerY" id="dnG-6z-Bhm"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3Qv-1N-Usp"/>
+                            <constraint firstItem="srB-Zn-TsA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="6Sx-lJ-cA9"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9Dt-OB-YwD"/>
-                            <constraint firstItem="srB-Zn-TsA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="2" id="ESJ-Cr-YGB"/>
+                            <constraint firstAttribute="bottom" secondItem="uYb-sX-Ri1" secondAttribute="bottom" id="E8R-AW-4Aj"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GHT-hd-wAy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="srB-Zn-TsA" secondAttribute="trailing" constant="2" id="JWG-D7-BvY"/>
                             <constraint firstItem="YeD-XY-073" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="MnQ-mn-oOb"/>
@@ -323,7 +324,6 @@
                             <constraint firstItem="srB-Zn-TsA" firstAttribute="bottom" secondItem="OfX-sf-z1s" secondAttribute="bottom" id="a0E-gp-g7d"/>
                             <constraint firstItem="OfX-sf-z1s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="qpl-Bh-qIP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aiD-AU-smD" secondAttribute="bottom" constant="20" id="sfR-0i-qlz"/>
-                            <constraint firstItem="uYb-sX-Ri1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="sgo-6q-EgU"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="top" secondItem="YeD-XY-073" secondAttribute="bottom" constant="10" id="ugU-kZ-kkq"/>
                             <constraint firstItem="YeD-XY-073" firstAttribute="top" secondItem="srB-Zn-TsA" secondAttribute="bottom" constant="10" id="yoJ-RU-vhk"/>
                         </constraints>
@@ -342,7 +342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40.799999999999997" y="26.53673163418291"/>
+            <point key="canvasLocation" x="40.579710144927539" y="26.116071428571427"/>
         </scene>
     </scenes>
     <resources>
