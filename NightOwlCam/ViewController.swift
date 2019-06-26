@@ -11,12 +11,17 @@ import UIKit
 import AVFoundation
 import AVKit
 
-class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVAudioRecorderDelegate {
+class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVAudioRecorderDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet var viewCover: UIView!
     @IBOutlet var imgCenterLogo: UIImageView!
     @IBOutlet var swtSplit: UISwitch!
+    
+    @IBOutlet var scvTutorial: UIScrollView!
+    @IBOutlet var btnTutorial: UIButton!
+    @IBOutlet var viewTutorial: UIView!
+    @IBOutlet var btnGotit: UIButton!
     
     let captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -40,7 +45,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     var tick = 5
     var tickLimit = 5
     var aboutToStop = false
-    var videoLength = 5
+    var videoLength = 90
     var videoSaveTimer = Timer()
     var videoFileURL: URL?
     let fileA = "outputA.mov"
@@ -86,6 +91,11 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         imgCenterLogo.addGestureRecognizer(tapLogoGestureRecognizer)
         
         enableCover(now: false)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
+            self.btnTutorial.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }, completion: nil)
+        scvTutorial.delegate = self
         //        var files = [String]()
         //        do{
         //            files = try FileManager.default.contentsOfDirectory(atPath: NSTemporaryDirectory())
@@ -94,6 +104,12 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         //            return
         //        }
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scvTutorial.contentOffset.x != 0 {
+            scvTutorial.contentOffset.x = 0
+        }
     }
     
     func setupCaptureSession() {
@@ -164,6 +180,18 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         changeRecordState()
     }
     
+    @IBAction func btnGotitAct(_ sender: Any) {
+        viewTutorial.isHidden = true
+    }
+    
+    @IBAction func btnTutorialAct(_ sender: Any) {
+        if viewTutorial.isHidden {
+            viewTutorial.isHidden = false
+        }else{
+            viewTutorial.isHidden = true
+        }
+    }
+    
     @IBAction func swtChangeAct(_ sender: Any) {
         if swtSplit.isOn {
             isEnableSplitVideo = true
@@ -171,8 +199,14 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             isEnableSplitVideo = false
         }
     }
+    
     func changeRecordState() {
         if isRecording {
+            
+            // Offset the button to center of the screen.
+            imgCenterLogo.center.x = viewCover.bounds.width / 2
+            imgCenterLogo.center.y = viewCover.bounds.height / 2
+            
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
                 self.recordButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             }, completion: nil)

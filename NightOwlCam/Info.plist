@@ -23,11 +23,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>We need access to your Camera to record your video</string>
+	<string>$(PRODUCT_NAME) needs access to your Camera to record your video</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>We need access to your Microphone to record sound </string>
+	<string>$(PRODUCT_NAME) needs access to your Microphone to record sound </string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs access to your Photos to save your recorded videos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your Photos to save your recorded videos</string>
+	<string>$(PRODUCT_NAME) needs access to your Photos to save your recorded videos</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

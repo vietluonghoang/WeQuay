@@ -39,7 +39,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQK-Aq-KTl">
                                         <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car_1024x1024_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="wEt-5t-dK2">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wEt-5t-dK2">
                                                 <rect key="frame" x="1" y="1" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="0VE-Ap-iel"/>
@@ -83,7 +83,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="car_1024x1024_transparent" width="1024" height="1024"/>
         <image name="owl_logo_1024x1024_transparent" width="1024" height="1024"/>
+        <image name="wethoong_logo" width="264" height="263"/>
     </resources>
 </document>
