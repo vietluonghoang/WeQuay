@@ -61,7 +61,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         super.viewDidLoad()
         setupCaptureSession()
         setupDevice()
-//        setupInputOutput()
+        setupInputOutput()
         setupPreviewLayer()
         startRunningCaptureSession()
         
