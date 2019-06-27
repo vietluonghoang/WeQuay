@@ -106,7 +106,7 @@
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya1-SK-lBP" userLabel="lblTut2">
                                                                 <rect key="frame" x="54" y="2" width="334" height="133.66666666666666"/>
-                                                                <mutableString key="text">Tap on the red circle to start recording.  The screen will be covered by a black screen. A logo will blink on the black screen for 3 seconds to indicate that the recording goes well. You can freely to touch on the screen without interrupting recording or turning the light on.</mutableString>
+                                                                <string key="text">Tap on the red circle to start recording.  The screen will be covered by a black screen. A logo will blink on the black screen for 3 seconds to indicate that the recording goes well. You can freely to touch on the screen without interrupting recording or turning the light on.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -300,13 +300,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
-                                        <rect key="frame" x="75" y="316.66666666666669" width="264" height="263.00000000000006"/>
+                                        <rect key="frame" x="107" y="348" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="UBW-UE-vge"/>
+                                            <constraint firstAttribute="height" constant="200" id="xMb-VZ-URG"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="5q0-hy-4Nh">
+                                        <rect key="frame" x="367" y="849" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="MMr-mD-3yO"/>
+                                            <constraint firstAttribute="width" constant="30" id="XEh-ek-M8x"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="5q0-hy-4Nh" secondAttribute="bottom" constant="17" id="7jE-vJ-OOb"/>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerX" secondItem="uYb-sX-Ri1" secondAttribute="centerX" id="8EY-gm-LDf"/>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerY" secondItem="uYb-sX-Ri1" secondAttribute="centerY" id="dnG-6z-Bhm"/>
+                                    <constraint firstAttribute="trailing" secondItem="5q0-hy-4Nh" secondAttribute="trailing" constant="17" id="e9H-6b-DQ6"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -333,6 +346,7 @@
                         <outlet property="btnGotit" destination="MbI-mi-LA7" id="dAv-xO-HDH"/>
                         <outlet property="btnTutorial" destination="OfX-sf-z1s" id="PvZ-Wm-bgR"/>
                         <outlet property="imgCenterLogo" destination="9up-Mj-VgS" id="mia-IH-uXP"/>
+                        <outlet property="imgIndicator" destination="5q0-hy-4Nh" id="tLR-Y0-H7K"/>
                         <outlet property="recordButton" destination="aiD-AU-smD" id="5ej-O0-eaV"/>
                         <outlet property="scvTutorial" destination="Vor-4z-GY2" id="J5p-vD-T9h"/>
                         <outlet property="swtSplit" destination="zBH-L7-Yzs" id="pJD-iS-KXj"/>
