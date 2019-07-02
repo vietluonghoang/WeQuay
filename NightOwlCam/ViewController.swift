@@ -200,6 +200,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     }
     
     @IBAction func capture(sender: UIButton) {
+        // We have to call the check again here to solve the problem of having permission grant at the first launch but the checkpoint does not get updated. The reason could be an async method called on viewDidAppear
+        checkAuthorizationForAccessingMedia()
         if isReadyToRecord {
             if !self.isRecording {
                 self.isRecording = true
@@ -510,16 +512,21 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         
         
         let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        print("======== Checking camera")
         if cameraStatus == .notDetermined {
+            print("+++++======== Not decide yet")
             AVCaptureDevice.requestAccess(for: .video) { success in
                 if success { // if request is granted (success is true)
+                    print("+++++======== Accept")
                     videoCheckpoint = true
                 } else { // if request is denied (success is false)
-                    
+                    print("+++++======== Deny")
                 }
             }
         }else{
+            print("+++++======== Already decided")
             if cameraStatus == .authorized {
+                print("+++++======== Accept")
                 videoCheckpoint = true
             }else {
                 if !isAlertShowing {
@@ -528,18 +535,22 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
                 }
             }
         }
-        
+        print("======== Checking audio")
         let audioStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         if audioStatus == .notDetermined {
+            print("+++++======== Not decide yet")
             AVCaptureDevice.requestAccess(for: .audio) { success in
                 if success { // if request is granted (success is true)
+                    print("+++++======== Accept")
                     audioCheckpoint = true
                 } else { // if request is denied (success is false)
-                    
+                    print("+++++======== Deny")
                 }
             }
         } else {
+            print("+++++======== Already decided")
             if audioStatus == .authorized {
+                print("+++++======== Accept")
                 audioCheckpoint = true
             }else{
                 if !isAlertShowing {
@@ -550,19 +561,23 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }
         
         //check access to Photos
+        print("======== Checking photos")
         let photosStatus = PHPhotoLibrary.authorizationStatus()
         if photosStatus == .notDetermined {
-            print("request access to photos")
+            print("+++++======== Not decide yet")
             PHPhotoLibrary.requestAuthorization({status in
                 if status == .authorized{
+                    print("+++++======== Accept")
                     photosCheckpoint = true
                 } else {
-                    
+                    print("+++++======== Deny")
                 }
             })
         } else {
+            print("+++++======== Already decided")
             if (photosStatus == PHAuthorizationStatus.authorized) {
                 // Access has been granted.
+                print("+++++======== Accept")
                 photosCheckpoint = true
             } else if (photosStatus == PHAuthorizationStatus.denied) {
                 // Access has been denied.
@@ -573,9 +588,14 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             }
         }
         
+        validateRecordReadyState(audioCheckpoint: audioCheckpoint, photosCheckpoint: photosCheckpoint, videoCheckpoint: videoCheckpoint)
+    }
+    
+    func validateRecordReadyState(audioCheckpoint: Bool, photosCheckpoint: Bool, videoCheckpoint:Bool) {
         if(audioCheckpoint && photosCheckpoint && videoCheckpoint){
             isReadyToRecord = true
         }
+        print("=============== isReadyToRecord? \(isReadyToRecord)")
     }
     
     func openAppSettings() {
@@ -688,5 +708,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     //set of behaviours that need to perform when resuming from background
     @objc func resumeAppProgress(){
+        checkAuthorizationForAccessingMedia()
     }
 }
