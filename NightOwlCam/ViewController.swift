@@ -18,12 +18,14 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @IBOutlet var viewCover: UIView!
     @IBOutlet var imgCenterLogo: UIImageView!
     @IBOutlet var swtSplit: UISwitch!
-    @IBOutlet var imgIndicator: UIImageView!
+    @IBOutlet var btnRecordingIndicator: UIButton!
+    @IBOutlet var lblVersionInfo: UILabel!
     
     @IBOutlet var scvTutorial: UIScrollView!
     @IBOutlet var btnTutorial: UIButton!
     @IBOutlet var viewTutorial: UIView!
     @IBOutlet var btnGotit: UIButton!
+    @IBOutlet var lblRecording: UILabel!
     
     let captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -40,9 +42,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     var zoomInGestureRecognizer = UISwipeGestureRecognizer()
     var zoomOutGestureRecognizer = UISwipeGestureRecognizer()
-    var scaleUpIndicatorGestureRecognizer = UISwipeGestureRecognizer()
-    var scaleDownIndicatorGestureRecognizer = UISwipeGestureRecognizer()
-    var enableIndicatorScalingGestureRecognizer = UITapGestureRecognizer()
+    var darkenRecordingScreenGestureRecognizer = UITapGestureRecognizer()
+    var enableDarkenRecordingScreenGestureRecognizer = UITapGestureRecognizer()
     
     
     var tapGestureRecognizer = UITapGestureRecognizer()
@@ -59,8 +60,9 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     let fileA = "outputA.mov"
     let fileB = "outputB.mov"
     var isEnableSplitVideo = false
-    var indicatorScalingRatio = 1.0
-    var isIndicatorScalingEnable = false
+    var defaultCoverViewAlphaRatio = 0.8
+    var coverViewAlphaRatio = 0.8
+    var isCoveringRecordingScreenEnable = false
     
     var settings = [String:String]()
     let indicatorScalingRatioKey = "indicatorScalingRatio"
@@ -94,40 +96,37 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         zoomOutGestureRecognizer.addTarget(self, action: #selector(zoomOut))
         view.addGestureRecognizer(zoomOutGestureRecognizer)
         
-        scaleUpIndicatorGestureRecognizer.direction = .left
-        scaleUpIndicatorGestureRecognizer.addTarget(self, action: #selector(scaleUpIndicator))
-        viewCover.addGestureRecognizer(scaleUpIndicatorGestureRecognizer)
-        
-        scaleDownIndicatorGestureRecognizer.direction = .right
-        scaleDownIndicatorGestureRecognizer.addTarget(self, action: #selector(scaleDownIndicator))
-        viewCover.addGestureRecognizer(scaleDownIndicatorGestureRecognizer)
+        darkenRecordingScreenGestureRecognizer.numberOfTapsRequired = 5
+        darkenRecordingScreenGestureRecognizer.numberOfTouchesRequired = 3
+        darkenRecordingScreenGestureRecognizer.addTarget(self, action: #selector(coverRecordingScreenNow))
+        view.addGestureRecognizer(darkenRecordingScreenGestureRecognizer)
         
         tapGestureRecognizer.addTarget(self, action: #selector(tapCount))
         viewCover.addGestureRecognizer(tapGestureRecognizer)
         
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.numberOfTapsRequired = 3
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 2
         doubleTapGestureRecognizer.addTarget(self, action: #selector(triggerStopRecord))
         viewCover.addGestureRecognizer(doubleTapGestureRecognizer)
         
-        enableIndicatorScalingGestureRecognizer.numberOfTapsRequired = 3
-        enableIndicatorScalingGestureRecognizer.numberOfTouchesRequired = 2
-        enableIndicatorScalingGestureRecognizer.addTarget(self, action: #selector(enableIndicatorScaling))
-        viewCover.addGestureRecognizer(enableIndicatorScalingGestureRecognizer)
+        enableDarkenRecordingScreenGestureRecognizer.numberOfTapsRequired = 5
+        enableDarkenRecordingScreenGestureRecognizer.numberOfTouchesRequired = 4
+        enableDarkenRecordingScreenGestureRecognizer.addTarget(self, action: #selector(enableIndicatorScaling))
+        view.addGestureRecognizer(enableDarkenRecordingScreenGestureRecognizer)
         
         tapLogoGestureRecognizer.addTarget(self, action: #selector(countLogoTap))
         imgCenterLogo.addGestureRecognizer(tapLogoGestureRecognizer)
         
         enableCover(now: false)
-        
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
-            self.btnTutorial.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        }, completion: nil)
+
+        addBlinkingEffectTo(view: self.btnTutorial)
         scvTutorial.delegate = self
         
         readingAppSettings()
         NotificationCenter.default.addObserver(self, selector: #selector(saveDataBeforeQuit), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resumeAppProgress), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+        lblVersionInfo.text = getVersion()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -244,9 +243,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             imgCenterLogo.center.x = viewCover.bounds.width / 2
             imgCenterLogo.center.y = viewCover.bounds.height / 2
             
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
-                self.recordButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            }, completion: nil)
+            addBlinkingEffectTo(view: self.btnRecordingIndicator)
             let outputPath = NSTemporaryDirectory() + fileA
             videoFileURL = URL(fileURLWithPath: outputPath)
             videoFileOutput?.startRecording(to: videoFileURL!, recordingDelegate: self)
@@ -254,12 +251,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             enableCover(now: true)
         } else {
             videoSaveTimer.invalidate()
-            UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: { () -> Void in
-                self.recordButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            }, completion: nil)
+            removeBlinkingEffectFrom(view: self.btnRecordingIndicator)
             recordButton.layer.removeAllAnimations()
+            btnRecordingIndicator.layer.removeAllAnimations()
             imgCenterLogo.layer.removeAllAnimations()
-            imgIndicator.layer.removeAllAnimations()
             videoFileOutput?.stopRecording()
             enableCover(now: false)
             writingAppSettings()
@@ -349,30 +344,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }
     }
     
-    @objc func scaleUpIndicator(){
-        if isIndicatorScalingEnable{
-            if indicatorScalingRatio < 1 {
-                indicatorScalingRatio *= 2
-                if indicatorScalingRatio > 1 {
-                    indicatorScalingRatio = 1
-                }
-            }
-            scaleIndicator()
-        }
-    }
-    
-    @objc func scaleDownIndicator(){
-        if isIndicatorScalingEnable{
-            if indicatorScalingRatio > 0.1 {
-                indicatorScalingRatio *= 0.5
-                if indicatorScalingRatio < 0.1 {
-                    indicatorScalingRatio = 0.1
-                }
-            }
-            scaleIndicator()
-        }
-    }
-    
     @objc func finish() {
     }
     
@@ -380,24 +351,23 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         if now {
             recordButton.isHidden = true
             imgCenterLogo.isHidden = false
-            imgIndicator.isHidden = true
-            viewCover.alpha = 1
-            UIApplication.shared.isIdleTimerDisabled = true
-            
+            viewCover.alpha = CGFloat(coverViewAlphaRatio)
+            if coverViewAlphaRatio == 1 {
+                btnRecordingIndicator.alpha = 0
+            }else {
+                btnRecordingIndicator.alpha = 1
+            }
+            UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
             imgCenterLogo.isUserInteractionEnabled = false
             viewCover.isUserInteractionEnabled = false
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
-                self.imgCenterLogo.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            }, completion: nil)
+            addBlinkingEffectTo(view: self.imgCenterLogo)
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(hideCenterLogo), userInfo: nil, repeats: false)
         } else {
             recordButton.isHidden = false
             imgCenterLogo.isHidden = true
             viewCover.alpha = 0
             UIApplication.shared.isIdleTimerDisabled = false
-            UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: { () -> Void in
-                self.imgCenterLogo.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            }, completion: nil)
+            removeBlinkingEffectFrom(view: self.imgCenterLogo)
         }
     }
     
@@ -407,9 +377,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(rejectTriggerStopRecord), userInfo: nil, repeats: false)
             tick = requiredTick
             tickLimit = requiredTickLimit
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
-                self.imgCenterLogo.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            }, completion: nil)
+            addBlinkingEffectTo(view: self.imgCenterLogo)
             imgCenterLogo.isHidden = false
             imgCenterLogo.isUserInteractionEnabled = true
         }
@@ -440,10 +408,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         imgCenterLogo.isHidden = true
         imgCenterLogo.isUserInteractionEnabled = false
         viewCover.isUserInteractionEnabled = true
-        scaleIndicator()
-        imgIndicator.isHidden = false
         imgCenterLogo.transform = CGAffineTransform.identity
-        rotateView(targetView: imgIndicator, duration: 0.5)
     }
     
     @objc func countLogoTap(){
@@ -512,21 +477,15 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         
         
         let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
-        print("======== Checking camera")
         if cameraStatus == .notDetermined {
-            print("+++++======== Not decide yet")
             AVCaptureDevice.requestAccess(for: .video) { success in
                 if success { // if request is granted (success is true)
-                    print("+++++======== Accept")
                     videoCheckpoint = true
                 } else { // if request is denied (success is false)
-                    print("+++++======== Deny")
                 }
             }
         }else{
-            print("+++++======== Already decided")
             if cameraStatus == .authorized {
-                print("+++++======== Accept")
                 videoCheckpoint = true
             }else {
                 if !isAlertShowing {
@@ -535,22 +494,16 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
                 }
             }
         }
-        print("======== Checking audio")
         let audioStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         if audioStatus == .notDetermined {
-            print("+++++======== Not decide yet")
             AVCaptureDevice.requestAccess(for: .audio) { success in
                 if success { // if request is granted (success is true)
-                    print("+++++======== Accept")
                     audioCheckpoint = true
                 } else { // if request is denied (success is false)
-                    print("+++++======== Deny")
                 }
             }
         } else {
-            print("+++++======== Already decided")
             if audioStatus == .authorized {
-                print("+++++======== Accept")
                 audioCheckpoint = true
             }else{
                 if !isAlertShowing {
@@ -561,23 +514,17 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }
         
         //check access to Photos
-        print("======== Checking photos")
         let photosStatus = PHPhotoLibrary.authorizationStatus()
         if photosStatus == .notDetermined {
-            print("+++++======== Not decide yet")
             PHPhotoLibrary.requestAuthorization({status in
                 if status == .authorized{
-                    print("+++++======== Accept")
                     photosCheckpoint = true
                 } else {
-                    print("+++++======== Deny")
                 }
             })
         } else {
-            print("+++++======== Already decided")
             if (photosStatus == PHAuthorizationStatus.authorized) {
                 // Access has been granted.
-                print("+++++======== Accept")
                 photosCheckpoint = true
             } else if (photosStatus == PHAuthorizationStatus.denied) {
                 // Access has been denied.
@@ -595,7 +542,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         if(audioCheckpoint && photosCheckpoint && videoCheckpoint){
             isReadyToRecord = true
         }
-        print("=============== isReadyToRecord? \(isReadyToRecord)")
     }
     
     func openAppSettings() {
@@ -615,30 +561,39 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         self.present(alert, animated: true, completion: nil)
     }
     
-    func scaleIndicator() {
-        settings[indicatorScalingRatioKey] = String(indicatorScalingRatio)
-        imgIndicator.transform = CGAffineTransform(scaleX: CGFloat(indicatorScalingRatio), y: CGFloat(indicatorScalingRatio))
-    }
-    
-    private func rotateView(targetView: UIView, duration: Double = 1.0) {
-        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
-            targetView.transform = targetView.transform.rotated(by: CGFloat.pi)
-        }) { finished in
-            self.rotateView(targetView: targetView, duration: duration)
-        }
-    }
-    
     @objc func enableIndicatorScaling() {
-        if !isIndicatorScalingEnable {
-            isIndicatorScalingEnable = true
+        if !isCoveringRecordingScreenEnable {
+            isCoveringRecordingScreenEnable = true
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(disableIndicatorScaling), userInfo: nil, repeats: false)
         }
     }
     
     @objc func disableIndicatorScaling() {
-        if isIndicatorScalingEnable {
-            isIndicatorScalingEnable = false
+        if isCoveringRecordingScreenEnable {
+            isCoveringRecordingScreenEnable = false
         }
+    }
+    
+    @objc func coverRecordingScreenNow(){
+        if isCoveringRecordingScreenEnable {
+            if coverViewAlphaRatio == 1.0 {
+                coverViewAlphaRatio = defaultCoverViewAlphaRatio
+            } else {
+                coverViewAlphaRatio = 1.0
+            }
+        }
+    }
+    
+    func addBlinkingEffectTo(view: UIView) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: { () -> Void in
+            view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }, completion: nil)
+    }
+    
+    func removeBlinkingEffectFrom(view: UIView) {
+        UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: { () -> Void in
+            view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }, completion: nil)
     }
     
     func readingAppSettings() {
@@ -661,9 +616,9 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }
         
         if settings[indicatorScalingRatioKey] != nil {
-            indicatorScalingRatio = Double(settings[indicatorScalingRatioKey]!)!
+            coverViewAlphaRatio = Double(settings[indicatorScalingRatioKey]!)!
         }else{
-            indicatorScalingRatio = 1.0
+            coverViewAlphaRatio = defaultCoverViewAlphaRatio
         }
         if settings[enableSplitVideoKey] != nil {
             if settings[enableSplitVideoKey] == "1"{
@@ -691,6 +646,14 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }catch{
             print(error)
         }
+    }
+    
+    func getVersion() -> String {
+        let bundleCode: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject
+        let bundleVersion: AnyObject? = Bundle.main.infoDictionary!["CFBundleVersion"] as AnyObject
+        let versionInfo = "v.\(bundleCode as! String)(\(bundleVersion as! String))"
+        //        print("=========== \(versionInfo)")
+        return versionInfo
     }
     
     //set of actions that need to take before puting the app to background
