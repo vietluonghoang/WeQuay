@@ -320,7 +320,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
                                         <rect key="frame" x="107" y="348" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="UBW-UE-vge"/>

@@ -350,7 +350,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     func enableCover(now: Bool) {
         if now {
             recordButton.isHidden = true
-            imgCenterLogo.isHidden = false
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
             if coverViewAlphaRatio == 1 {
                 btnRecordingIndicator.alpha = 0
@@ -358,16 +357,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
                 btnRecordingIndicator.alpha = 1
             }
             UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
-            imgCenterLogo.isUserInteractionEnabled = false
-            viewCover.isUserInteractionEnabled = false
-            addBlinkingEffectTo(view: self.imgCenterLogo)
-            Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(hideCenterLogo), userInfo: nil, repeats: false)
         } else {
             recordButton.isHidden = false
-            imgCenterLogo.isHidden = true
             viewCover.alpha = 0
             UIApplication.shared.isIdleTimerDisabled = false
-            removeBlinkingEffectFrom(view: self.imgCenterLogo)
         }
     }
     
@@ -433,7 +426,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         imgCenterLogo.isHidden = true
         imgCenterLogo.isUserInteractionEnabled = false
         viewCover.isUserInteractionEnabled = false
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(hideCenterLogo), userInfo: nil, repeats: false)
+        hideCenterLogo()
+//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(hideCenterLogo), userInfo: nil, repeats: false)
     }
     
     func validateTriggerStop() {
