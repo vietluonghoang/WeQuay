@@ -309,7 +309,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-vi-Xmt" userLabel="btnRecordingIndicator">
                                         <rect key="frame" x="391" y="873" width="6" height="6"/>
-                                        <color key="backgroundColor" red="0.20857585370000001" green="0.76687471149999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="6" id="6nT-lo-LKj"/>
                                             <constraint firstAttribute="height" constant="6" id="KHL-Yl-crv"/>
@@ -368,6 +368,7 @@
                         <outlet property="scvTutorial" destination="Vor-4z-GY2" id="J5p-vD-T9h"/>
                         <outlet property="swtSplit" destination="zBH-L7-Yzs" id="pJD-iS-KXj"/>
                         <outlet property="viewCover" destination="uYb-sX-Ri1" id="C9Y-zo-BKU"/>
+                        <outlet property="viewSplit" destination="srB-Zn-TsA" id="2MT-v5-oDc"/>
                         <outlet property="viewTutorial" destination="YeD-XY-073" id="8rb-7X-Tp3"/>
                     </connections>
                 </viewController>

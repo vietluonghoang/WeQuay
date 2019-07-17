@@ -17,6 +17,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet var viewCover: UIView!
     @IBOutlet var imgCenterLogo: UIImageView!
+    @IBOutlet var viewSplit: UIView!
     @IBOutlet var swtSplit: UISwitch!
     @IBOutlet var btnRecordingIndicator: UIButton!
     @IBOutlet var lblVersionInfo: UILabel!
@@ -54,7 +55,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     var tick = 5
     var tickLimit = 5
     var aboutToStop = false
-    var videoLength = 90
+    var videoLength = 60
     var videoSaveTimer = Timer()
     var videoFileURL: URL?
     let fileA = "outputA.mov"
@@ -350,6 +351,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     func enableCover(now: Bool) {
         if now {
             recordButton.isHidden = true
+            viewSplit.isHidden = true
+            btnTutorial.isHidden = true
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
             if coverViewAlphaRatio == 1 {
                 btnRecordingIndicator.alpha = 0
@@ -359,6 +362,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
         } else {
             recordButton.isHidden = false
+            viewSplit.isHidden = false
+            btnTutorial.isHidden = false
             viewCover.alpha = 0
             UIApplication.shared.isIdleTimerDisabled = false
         }
