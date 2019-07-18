@@ -114,7 +114,7 @@
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya1-SK-lBP" userLabel="lblTut2">
                                                                 <rect key="frame" x="54" y="2" width="334" height="114.66666666666667"/>
-                                                                <string key="text">Tap on the red circle to start recording.  The screen will be blurry with a blinking dot near the bottom-right corner to indicate that the recording is in progress. You can freely to touch on the screen without interrupting recording.</string>
+                                                                <string key="text">Tap on the red circle to start recording.  The red circle will turn to be a blinking small circle near the bottom-right corner to indicate that the recording is in progress. You can freely to touch on the screen without interrupting recording.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -304,24 +304,25 @@
                                     <action selector="captureWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qRP-BL-8u9"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-vi-Xmt" userLabel="btnRecordingIndicator">
+                                <rect key="frame" x="388" y="836" width="6" height="6"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="6" id="6nT-lo-LKj"/>
+                                    <constraint firstAttribute="height" constant="6" id="KHL-Yl-crv"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-sX-Ri1">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-vi-Xmt" userLabel="btnRecordingIndicator">
-                                        <rect key="frame" x="391" y="873" width="6" height="6"/>
-                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="6" id="6nT-lo-LKj"/>
-                                            <constraint firstAttribute="height" constant="6" id="KHL-Yl-crv"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
+                                    <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
                                         <rect key="frame" x="107" y="348" width="200" height="200"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="UBW-UE-vge"/>
                                             <constraint firstAttribute="height" constant="200" id="xMb-VZ-URG"/>
@@ -331,14 +332,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerX" secondItem="uYb-sX-Ri1" secondAttribute="centerX" id="8EY-gm-LDf"/>
-                                    <constraint firstAttribute="trailing" secondItem="yxG-vi-Xmt" secondAttribute="trailing" constant="17" id="Iom-4Q-8Do"/>
-                                    <constraint firstAttribute="bottom" secondItem="yxG-vi-Xmt" secondAttribute="bottom" constant="17" id="WYF-ki-qld"/>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerY" secondItem="uYb-sX-Ri1" secondAttribute="centerY" id="dnG-6z-Bhm"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="yxG-vi-Xmt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1Qa-EO-wQZ"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3Qv-1N-Usp"/>
                             <constraint firstItem="srB-Zn-TsA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="6Sx-lJ-cA9"/>
                             <constraint firstAttribute="bottom" secondItem="Wc3-4M-EsR" secondAttribute="bottom" constant="20" id="7NW-zI-Spt"/>
@@ -354,6 +354,7 @@
                             <constraint firstItem="OfX-sf-z1s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="qpl-Bh-qIP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aiD-AU-smD" secondAttribute="bottom" constant="20" id="sfR-0i-qlz"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="top" secondItem="YeD-XY-073" secondAttribute="bottom" constant="10" id="ugU-kZ-kkq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="yxG-vi-Xmt" secondAttribute="bottom" constant="20" id="w4B-Fd-HqF"/>
                             <constraint firstItem="YeD-XY-073" firstAttribute="top" secondItem="srB-Zn-TsA" secondAttribute="bottom" constant="10" id="yoJ-RU-vhk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

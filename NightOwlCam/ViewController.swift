@@ -61,8 +61,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     let fileA = "outputA.mov"
     let fileB = "outputB.mov"
     var isEnableSplitVideo = false
-    var defaultCoverViewAlphaRatio = 0.8
-    var coverViewAlphaRatio = 0.8
+    var defaultCoverViewAlphaRatio = 0.2
+    var coverViewAlphaRatio = 0.2
     var isCoveringRecordingScreenEnable = false
     
     var settings = [String:String]()
@@ -351,19 +351,18 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     func enableCover(now: Bool) {
         if now {
             recordButton.isHidden = true
+            btnRecordingIndicator.isHidden = false
             viewSplit.isHidden = true
             btnTutorial.isHidden = true
+            lblVersionInfo.isHidden = true
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
-            if coverViewAlphaRatio == 1 {
-                btnRecordingIndicator.alpha = 0
-            }else {
-                btnRecordingIndicator.alpha = 1
-            }
             UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
         } else {
             recordButton.isHidden = false
+            btnRecordingIndicator.isHidden = true
             viewSplit.isHidden = false
             btnTutorial.isHidden = false
+            lblVersionInfo.isHidden = false
             viewCover.alpha = 0
             UIApplication.shared.isIdleTimerDisabled = false
         }
@@ -563,6 +562,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @objc func enableIndicatorScaling() {
         if !isCoveringRecordingScreenEnable {
             isCoveringRecordingScreenEnable = true
+            btnRecordingIndicator.isHidden = false
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(disableIndicatorScaling), userInfo: nil, repeats: false)
         }
     }
@@ -570,6 +570,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @objc func disableIndicatorScaling() {
         if isCoveringRecordingScreenEnable {
             isCoveringRecordingScreenEnable = false
+            btnRecordingIndicator.isHidden = true
         }
     }
     
@@ -577,8 +578,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         if isCoveringRecordingScreenEnable {
             if coverViewAlphaRatio == 1.0 {
                 coverViewAlphaRatio = defaultCoverViewAlphaRatio
+                btnRecordingIndicator.backgroundColor = UIColor.red
             } else {
                 coverViewAlphaRatio = 1.0
+                btnRecordingIndicator.backgroundColor = UIColor.blue
             }
         }
     }
