@@ -64,6 +64,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     var defaultCoverViewAlphaRatio = 0.2
     var coverViewAlphaRatio = 0.2
     var isCoveringRecordingScreenEnable = false
+    let settingsFileName = "settings.txt"
     
     var settings = [String:String]()
     let indicatorScalingRatioKey = "indicatorScalingRatio"
@@ -124,6 +125,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         scvTutorial.delegate = self
         
         readingAppSettings()
+        updateUI()
         NotificationCenter.default.addObserver(self, selector: #selector(saveDataBeforeQuit), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(resumeAppProgress), name: UIApplication.willEnterForegroundNotification, object: nil)
         
@@ -133,6 +135,19 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         checkAuthorizationForAccessingMedia()
+    }
+    
+    func updateUI(){
+        if isEnableSplitVideo {
+            swtSplit.isOn = true
+        }else{
+            swtSplit.isOn = false
+        }
+        
+        if coverViewAlphaRatio == 1{
+            btnRecordingIndicator.backgroundColor = UIColor.blue
+            enableIndicatorScaling()
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -253,9 +268,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         } else {
             videoSaveTimer.invalidate()
             removeBlinkingEffectFrom(view: self.btnRecordingIndicator)
-            recordButton.layer.removeAllAnimations()
-            btnRecordingIndicator.layer.removeAllAnimations()
-            imgCenterLogo.layer.removeAllAnimations()
+            removeBlinkingEffectFrom(view: imgCenterLogo)
+//            recordButton.layer.removeAllAnimations()
             videoFileOutput?.stopRecording()
             enableCover(now: false)
             writingAppSettings()
@@ -405,7 +419,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         imgCenterLogo.isHidden = true
         imgCenterLogo.isUserInteractionEnabled = false
         viewCover.isUserInteractionEnabled = true
-        imgCenterLogo.transform = CGAffineTransform.identity
+        removeBlinkingEffectFrom(view: self.imgCenterLogo)
     }
     
     @objc func countLogoTap(){
@@ -431,7 +445,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         imgCenterLogo.isUserInteractionEnabled = false
         viewCover.isUserInteractionEnabled = false
         hideCenterLogo()
-//        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(hideCenterLogo), userInfo: nil, repeats: false)
     }
     
     func validateTriggerStop() {
@@ -584,6 +597,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
                 btnRecordingIndicator.backgroundColor = UIColor.blue
             }
         }
+        settings[indicatorScalingRatioKey] = String(coverViewAlphaRatio)
     }
     
     func addBlinkingEffectTo(view: UIView) {
@@ -596,11 +610,12 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         UIView.animate(withDuration: 0.5, delay: 1.0, options: [], animations: { () -> Void in
             view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }, completion: nil)
+        view.layer.removeAllAnimations()
+        view.transform = CGAffineTransform.identity
     }
     
     func readingAppSettings() {
-        let fileName = "settings.txt"
-        let filePath = NSTemporaryDirectory() + fileName
+        let filePath = NSTemporaryDirectory() + settingsFileName
         let fileURL = URL(fileURLWithPath: filePath)
         var settingContent = ""
         let fileMan = FileManager.default
@@ -634,8 +649,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     }
     
     func writingAppSettings() {
-        let fileName = "settings.txt"
-        let filePath = NSTemporaryDirectory() + fileName
+        let filePath = NSTemporaryDirectory() + settingsFileName
         let fileURL = URL(fileURLWithPath: filePath)
         var settingContent = ""
         
@@ -665,7 +679,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             wasInterruptedByPuttingToBackground = true
             print("urgent saving")
         }
-        writingAppSettings()
+        writingAppSettings() //this call could redundant to the call made in 'changeRecordState()' but just to make sure that the settings are saved
         isRecording = false
         changeRecordState()
         enableCover(now: false)
