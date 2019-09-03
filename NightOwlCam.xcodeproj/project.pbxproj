@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3370A833231E3F0700B9D46B /* HomeIndicatorListionerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3370A832231E3F0700B9D46B /* HomeIndicatorListionerViewController.swift */; };
 		33E2C42522C1036E00D6D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2C42422C1036E00D6D813 /* AppDelegate.swift */; };
 		33E2C42722C1036E00D6D813 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E2C42622C1036E00D6D813 /* ViewController.swift */; };
 		33E2C42A22C1036E00D6D813 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33E2C42822C1036E00D6D813 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3370A832231E3F0700B9D46B /* HomeIndicatorListionerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIndicatorListionerViewController.swift; sourceTree = "<group>"; };
 		33E2C42122C1036E00D6D813 /* NightOwlCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NightOwlCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E2C42422C1036E00D6D813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33E2C42622C1036E00D6D813 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				33E2C42B22C1037400D6D813 /* Assets.xcassets */,
 				33E2C42D22C1037400D6D813 /* LaunchScreen.storyboard */,
 				33E2C43022C1037400D6D813 /* Info.plist */,
+				3370A832231E3F0700B9D46B /* HomeIndicatorListionerViewController.swift */,
 			);
 			path = NightOwlCam;
 			sourceTree = "<group>";
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					33E2C42022C1036E00D6D813 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -135,6 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3370A833231E3F0700B9D46B /* HomeIndicatorListionerViewController.swift in Sources */,
 				33E2C42722C1036E00D6D813 /* ViewController.swift in Sources */,
 				33E2C42522C1036E00D6D813 /* AppDelegate.swift in Sources */,
 			);
@@ -294,7 +299,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietlh.WeQuay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -315,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vietlh.WeQuay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -63,13 +63,13 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     var isEnableSplitVideo = false
     var defaultCoverViewAlphaRatio = 0.2
     var coverViewAlphaRatio = 0.2
+    var originalBrightness: CGFloat = 0
     var isCoveringRecordingScreenEnable = false
     let settingsFileName = "settings.txt"
     
     var settings = [String:String]()
-    let indicatorScalingRatioKey = "indicatorScalingRatio"
+    let indicatorScalingRatioKey = "indicatorScalingRatio" //actually coverViewAlphaRatio
     let enableSplitVideoKey = "splitVideo"
-    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -78,6 +78,9 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     override func viewDidLoad() {
         RunLoop.current.run(until: Date(timeIntervalSinceNow : 2.0))
         super.viewDidLoad()
+        
+        originalBrightness = UIScreen.main.brightness //capture original brightness
+        
         setupCaptureSession()
         setupDevice()
         setupInputOutput()
@@ -130,10 +133,16 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         NotificationCenter.default.addObserver(self, selector: #selector(resumeAppProgress), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         lblVersionInfo.text = getVersion()
+        initializeSubview()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if #available(iOS 11.0, *) {
+            setNeedsUpdateOfHomeIndicatorAutoHidden()
+        } else {
+            // Fallback on earlier versions
+        }
         checkAuthorizationForAccessingMedia()
     }
     
@@ -370,6 +379,9 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             btnTutorial.isHidden = true
             lblVersionInfo.isHidden = true
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
+            if CGFloat(coverViewAlphaRatio) == 1 {
+                UIScreen.main.brightness = 0
+            }
             UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
         } else {
             recordButton.isHidden = false
@@ -378,6 +390,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             btnTutorial.isHidden = false
             lblVersionInfo.isHidden = false
             viewCover.alpha = 0
+            UIScreen.main.brightness = originalBrightness
             UIApplication.shared.isIdleTimerDisabled = false
         }
     }
@@ -434,7 +447,11 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             tickLimit -= 1
             validateTriggerStop()
         }
-        
+        if #available(iOS 11.0, *) {
+            setNeedsUpdateOfHomeIndicatorAutoHidden()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     @objc func rejectTriggerStopRecord(){
@@ -688,5 +705,26 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     //set of behaviours that need to perform when resuming from background
     @objc func resumeAppProgress(){
         checkAuthorizationForAccessingMedia()
+    }
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    
+    //@available(iOS 11, *)
+    override var childForHomeIndicatorAutoHidden: UIViewController? {
+        if self.children.count > 0 {
+            return self.children[0]
+        }
+        return nil
+    }
+    
+    func initializeSubview() {
+        let controller:HomeIndicatorListionerViewController = self.storyboard!.instantiateViewController(withIdentifier: "secondViewController") as! HomeIndicatorListionerViewController
+        controller.view.frame = CGRect(x: 0, y: 0, width: 100, height: 100);
+//        controller.willMove(toParent: self)
+//        self.view.addSubview(controller.view)
+        self.addChild(controller)
+//        controller.didMove(toParent: self)
     }
 }
