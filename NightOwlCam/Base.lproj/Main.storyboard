@@ -52,6 +52,17 @@
                                     <action selector="btnTutorialAct:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g2L-Jg-6E2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ysJ-Lw-BGW">
+                                <rect key="frame" x="228" y="40" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="dFx-AH-ief"/>
+                                    <constraint firstAttribute="width" constant="60" id="w9h-mo-Zrq"/>
+                                </constraints>
+                                <state key="normal" image="camera_switch"/>
+                                <connections>
+                                    <action selector="btnCameraSwitchAct:" destination="BYZ-38-t0r" eventType="touchDown" id="cMl-lF-SFs"/>
+                                </connections>
+                            </button>
                             <view autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="srB-Zn-TsA" userLabel="viewSplit">
                                 <rect key="frame" x="308" y="40" width="104" height="59"/>
                                 <subviews>
@@ -178,14 +189,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DM7-7M-lR1" userLabel="viewTut4">
                                                         <rect key="frame" x="2" y="345" width="390" height="42.333333333333314"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="handpoint_up" translatesAutoresizingMaskIntoConstraints="NO" id="qCx-y8-giz">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera_switch" translatesAutoresizingMaskIntoConstraints="NO" id="qCx-y8-giz">
                                                                 <rect key="frame" x="0.0" y="-3.6666666666666856" width="50" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="DGe-37-BvA"/>
                                                                     <constraint firstAttribute="width" constant="50" id="V3x-LX-jXR"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe up to change the camera from back to front or vice versa." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCX-0u-7sU" userLabel="lblTut4">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on the camera switch button to change the camera from back to front or vice versa." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCX-0u-7sU" userLabel="lblTut4">
                                                                 <rect key="frame" x="54" y="2" width="334" height="38.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
@@ -320,15 +331,15 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-vi-Xmt" userLabel="btnRecordingIndicator">
-                                <rect key="frame" x="388" y="836" width="6" height="6"/>
+                                <rect key="frame" x="364" y="812" width="30" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="6" id="6nT-lo-LKj"/>
-                                    <constraint firstAttribute="height" constant="6" id="KHL-Yl-crv"/>
+                                    <constraint firstAttribute="width" constant="30" id="6nT-lo-LKj"/>
+                                    <constraint firstAttribute="height" constant="30" id="KHL-Yl-crv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="3"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -354,6 +365,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="yxG-vi-Xmt" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="1Qa-EO-wQZ"/>
+                            <constraint firstItem="srB-Zn-TsA" firstAttribute="leading" secondItem="ysJ-Lw-BGW" secondAttribute="trailing" constant="20" id="377-fV-eTM"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3Qv-1N-Usp"/>
                             <constraint firstItem="srB-Zn-TsA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="6Sx-lJ-cA9"/>
                             <constraint firstAttribute="bottom" secondItem="Wc3-4M-EsR" secondAttribute="bottom" constant="20" id="7NW-zI-Spt"/>
@@ -366,6 +378,7 @@
                             <constraint firstAttribute="trailing" secondItem="YeD-XY-073" secondAttribute="trailing" constant="10" id="Qc5-wy-h3K"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="WhT-hH-nBD"/>
                             <constraint firstItem="srB-Zn-TsA" firstAttribute="bottom" secondItem="OfX-sf-z1s" secondAttribute="bottom" id="a0E-gp-g7d"/>
+                            <constraint firstItem="srB-Zn-TsA" firstAttribute="top" secondItem="ysJ-Lw-BGW" secondAttribute="top" id="iwd-1e-4Mc"/>
                             <constraint firstItem="OfX-sf-z1s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="qpl-Bh-qIP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aiD-AU-smD" secondAttribute="bottom" constant="20" id="sfR-0i-qlz"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="top" secondItem="YeD-XY-073" secondAttribute="bottom" constant="10" id="ugU-kZ-kkq"/>
@@ -375,6 +388,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="btnCameraSwitch" destination="ysJ-Lw-BGW" id="Kjw-mX-sbZ"/>
                         <outlet property="btnGotit" destination="MbI-mi-LA7" id="dAv-xO-HDH"/>
                         <outlet property="btnRecordingIndicator" destination="yxG-vi-Xmt" id="cjB-N1-R69"/>
                         <outlet property="btnTutorial" destination="OfX-sf-z1s" id="PvZ-Wm-bgR"/>
@@ -394,8 +408,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera_switch" width="217" height="217"/>
         <image name="handpoint_left_rigt" width="300" height="300"/>
-        <image name="handpoint_up" width="200" height="200"/>
         <image name="help_logo" width="512" height="512"/>
         <image name="red_circle_logo" width="100" height="100"/>
         <image name="split_video_switch" width="200" height="112"/>

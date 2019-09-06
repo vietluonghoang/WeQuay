@@ -27,6 +27,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @IBOutlet var viewTutorial: UIView!
     @IBOutlet var btnGotit: UIButton!
     @IBOutlet var lblRecording: UILabel!
+    @IBOutlet var btnCameraSwitch: UIButton!
     
     let captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -87,9 +88,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         setupPreviewLayer()
         startRunningCaptureSession()
         
-        toggleCameraGestureRecognizer.direction = .up
-        toggleCameraGestureRecognizer.addTarget(self, action: #selector(self.switchCamera))
-        view.addGestureRecognizer(toggleCameraGestureRecognizer)
+        //switch camera
+//        toggleCameraGestureRecognizer.direction = .up
+//        toggleCameraGestureRecognizer.addTarget(self, action: #selector(self.switchCamera))
+//        view.addGestureRecognizer(toggleCameraGestureRecognizer)
         
         // Zoom In recognizer
         zoomInGestureRecognizer.direction = .right
@@ -154,6 +156,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
         }
         
         if coverViewAlphaRatio == 1{
+            
             btnRecordingIndicator.backgroundColor = UIColor.blue
             enableIndicatorScaling()
         }
@@ -259,6 +262,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             isEnableSplitVideo = false
             settings[enableSplitVideoKey] = "0"
         }
+    }
+    
+    @IBAction func btnCameraSwitchAct(_ sender: Any) {
+        switchCamera()
     }
     
     func changeRecordState() {
@@ -378,6 +385,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             viewSplit.isHidden = true
             btnTutorial.isHidden = true
             lblVersionInfo.isHidden = true
+            btnCameraSwitch.isHidden = true
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
             if CGFloat(coverViewAlphaRatio) == 1 {
                 UIScreen.main.brightness = 0
@@ -389,6 +397,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             viewSplit.isHidden = false
             btnTutorial.isHidden = false
             lblVersionInfo.isHidden = false
+            btnCameraSwitch.isHidden = false
             viewCover.alpha = 0
             UIScreen.main.brightness = originalBrightness
             UIApplication.shared.isIdleTimerDisabled = false
@@ -591,6 +600,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     @objc func enableIndicatorScaling() {
         if !isCoveringRecordingScreenEnable {
+            btnRecordingIndicator.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
             isCoveringRecordingScreenEnable = true
             btnRecordingIndicator.isHidden = false
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(disableIndicatorScaling), userInfo: nil, repeats: false)
@@ -599,6 +609,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     @objc func disableIndicatorScaling() {
         if isCoveringRecordingScreenEnable {
+            btnRecordingIndicator.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             isCoveringRecordingScreenEnable = false
             btnRecordingIndicator.isHidden = true
         }
