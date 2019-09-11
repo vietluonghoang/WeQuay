@@ -331,21 +331,30 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-vi-Xmt" userLabel="btnRecordingIndicator">
-                                <rect key="frame" x="364" y="812" width="30" height="30"/>
+                                <rect key="frame" x="384" y="802" width="10" height="10"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="6nT-lo-LKj"/>
-                                    <constraint firstAttribute="height" constant="30" id="KHL-Yl-crv"/>
+                                    <constraint firstAttribute="width" constant="10" id="6nT-lo-LKj"/>
+                                    <constraint firstAttribute="height" constant="10" id="KHL-Yl-crv"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
+                                        <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-sX-Ri1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REC" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlj-P3-E9y">
+                                <rect key="frame" x="334.33333333333331" y="795" width="39.666666666666686" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-sX-Ri1">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recording_target_layer" translatesAutoresizingMaskIntoConstraints="NO" id="AS6-k4-WZ7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    </imageView>
                                     <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wethoong_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="9up-Mj-VgS">
                                         <rect key="frame" x="107" y="348" width="200" height="200"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -357,8 +366,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="AS6-k4-WZ7" firstAttribute="top" secondItem="uYb-sX-Ri1" secondAttribute="top" id="7e9-hG-OoO"/>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerX" secondItem="uYb-sX-Ri1" secondAttribute="centerX" id="8EY-gm-LDf"/>
+                                    <constraint firstAttribute="trailing" secondItem="AS6-k4-WZ7" secondAttribute="trailing" id="IP8-1n-0u9"/>
+                                    <constraint firstItem="AS6-k4-WZ7" firstAttribute="leading" secondItem="uYb-sX-Ri1" secondAttribute="leading" id="YBP-kA-3pm"/>
                                     <constraint firstItem="9up-Mj-VgS" firstAttribute="centerY" secondItem="uYb-sX-Ri1" secondAttribute="centerY" id="dnG-6z-Bhm"/>
+                                    <constraint firstAttribute="bottom" secondItem="AS6-k4-WZ7" secondAttribute="bottom" id="mv1-oa-zxr"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -371,9 +384,11 @@
                             <constraint firstAttribute="bottom" secondItem="Wc3-4M-EsR" secondAttribute="bottom" constant="20" id="7NW-zI-Spt"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9Dt-OB-YwD"/>
                             <constraint firstAttribute="bottom" secondItem="uYb-sX-Ri1" secondAttribute="bottom" id="E8R-AW-4Aj"/>
+                            <constraint firstItem="yxG-vi-Xmt" firstAttribute="leading" secondItem="zlj-P3-E9y" secondAttribute="trailing" constant="10" id="FoN-Sv-zmE"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GHT-hd-wAy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="srB-Zn-TsA" secondAttribute="trailing" constant="2" id="JWG-D7-BvY"/>
                             <constraint firstItem="YeD-XY-073" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="MnQ-mn-oOb"/>
+                            <constraint firstItem="yxG-vi-Xmt" firstAttribute="centerY" secondItem="zlj-P3-E9y" secondAttribute="centerY" id="Mrf-RN-u8E"/>
                             <constraint firstItem="Wc3-4M-EsR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="QFo-Z0-VhH"/>
                             <constraint firstAttribute="trailing" secondItem="YeD-XY-073" secondAttribute="trailing" constant="10" id="Qc5-wy-h3K"/>
                             <constraint firstItem="uYb-sX-Ri1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="WhT-hH-nBD"/>
@@ -382,7 +397,7 @@
                             <constraint firstItem="OfX-sf-z1s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="qpl-Bh-qIP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aiD-AU-smD" secondAttribute="bottom" constant="20" id="sfR-0i-qlz"/>
                             <constraint firstItem="aiD-AU-smD" firstAttribute="top" secondItem="YeD-XY-073" secondAttribute="bottom" constant="10" id="ugU-kZ-kkq"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="yxG-vi-Xmt" secondAttribute="bottom" constant="20" id="w4B-Fd-HqF"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="yxG-vi-Xmt" secondAttribute="bottom" constant="50" id="w4B-Fd-HqF"/>
                             <constraint firstItem="YeD-XY-073" firstAttribute="top" secondItem="srB-Zn-TsA" secondAttribute="bottom" constant="10" id="yoJ-RU-vhk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -393,6 +408,8 @@
                         <outlet property="btnRecordingIndicator" destination="yxG-vi-Xmt" id="cjB-N1-R69"/>
                         <outlet property="btnTutorial" destination="OfX-sf-z1s" id="PvZ-Wm-bgR"/>
                         <outlet property="imgCenterLogo" destination="9up-Mj-VgS" id="mia-IH-uXP"/>
+                        <outlet property="imgRecordingTargetLayer" destination="AS6-k4-WZ7" id="FU5-e2-mqu"/>
+                        <outlet property="lblRec" destination="zlj-P3-E9y" id="d2N-y7-NPe"/>
                         <outlet property="lblVersionInfo" destination="Wc3-4M-EsR" id="7df-CK-9hZ"/>
                         <outlet property="recordButton" destination="aiD-AU-smD" id="5ej-O0-eaV"/>
                         <outlet property="scvTutorial" destination="Vor-4z-GY2" id="J5p-vD-T9h"/>
@@ -411,6 +428,7 @@
         <image name="camera_switch" width="217" height="217"/>
         <image name="handpoint_left_rigt" width="300" height="300"/>
         <image name="help_logo" width="512" height="512"/>
+        <image name="recording_target_layer" width="300" height="500"/>
         <image name="red_circle_logo" width="100" height="100"/>
         <image name="split_video_switch" width="200" height="112"/>
         <image name="wethoong_logo" width="264" height="263"/>

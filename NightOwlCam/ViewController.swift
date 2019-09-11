@@ -26,8 +26,9 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     @IBOutlet var btnTutorial: UIButton!
     @IBOutlet var viewTutorial: UIView!
     @IBOutlet var btnGotit: UIButton!
-    @IBOutlet var lblRecording: UILabel!
     @IBOutlet var btnCameraSwitch: UIButton!
+    @IBOutlet var lblRec: UILabel!
+    @IBOutlet var imgRecordingTargetLayer: UIImageView!
     
     let captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
@@ -270,12 +271,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     func changeRecordState() {
         if isRecording {
-            
-            // Offset the button to center of the screen.
-            imgCenterLogo.center.x = viewCover.bounds.width / 2
-            imgCenterLogo.center.y = viewCover.bounds.height / 2
-            
-            addBlinkingEffectTo(view: self.btnRecordingIndicator)
             let outputPath = NSTemporaryDirectory() + fileA
             videoFileURL = URL(fileURLWithPath: outputPath)
             videoFileOutput?.startRecording(to: videoFileURL!, recordingDelegate: self)
@@ -283,12 +278,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             enableCover(now: true)
         } else {
             videoSaveTimer.invalidate()
-            removeBlinkingEffectFrom(view: self.btnRecordingIndicator)
-            removeBlinkingEffectFrom(view: imgCenterLogo)
 //            recordButton.layer.removeAllAnimations()
             videoFileOutput?.stopRecording()
-            enableCover(now: false)
             writingAppSettings()
+            enableCover(now: false)
         }
     }
     
@@ -380,26 +373,58 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     func enableCover(now: Bool) {
         if now {
-            recordButton.isHidden = true
+            // Offset the button to center of the screen.
+            imgCenterLogo.center.x = viewCover.bounds.width / 2
+            imgCenterLogo.center.y = viewCover.bounds.height / 2
+            
+            //never sleep device when recording
+            UIApplication.shared.isIdleTimerDisabled = true
+            
+            addBlinkingEffectTo(view: self.lblRec) //start blinking the REC label
+            
+            //These component will appear
             btnRecordingIndicator.isHidden = false
+            lblRec.isHidden = false
+            
+            //These component will disappear
+            recordButton.isHidden = true
             viewSplit.isHidden = true
             btnTutorial.isHidden = true
             lblVersionInfo.isHidden = true
             btnCameraSwitch.isHidden = true
+            
             viewCover.alpha = CGFloat(coverViewAlphaRatio)
+            
+            //check if the app is in black-mode
             if CGFloat(coverViewAlphaRatio) == 1 {
-                UIScreen.main.brightness = 0
+                UIScreen.main.brightness = 0 //darken the screen
+                imgRecordingTargetLayer.isHidden = true //hide the target layer
+            }else{
+                imgRecordingTargetLayer.isHidden = false //show the target layer
             }
-            UIApplication.shared.isIdleTimerDisabled = true //never sleep device when recording
         } else {
+            //remove blinking effect
+            removeBlinkingEffectFrom(view: self.lblRec)
+            removeBlinkingEffectFrom(view: imgCenterLogo)
+            
+            //These components will appear
             recordButton.isHidden = false
-            btnRecordingIndicator.isHidden = true
             viewSplit.isHidden = false
             btnTutorial.isHidden = false
             lblVersionInfo.isHidden = false
             btnCameraSwitch.isHidden = false
+            
+            //These components will disappear
+            btnRecordingIndicator.isHidden = true
+            lblRec.isHidden = true
+            
+            //uncover the view
             viewCover.alpha = 0
+            
+            //restore the brightness
             UIScreen.main.brightness = originalBrightness
+            
+            //reenable auto sleep
             UIApplication.shared.isIdleTimerDisabled = false
         }
     }
@@ -600,7 +625,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
     
     @objc func enableIndicatorScaling() {
         if !isCoveringRecordingScreenEnable {
-            btnRecordingIndicator.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            btnRecordingIndicator.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
             isCoveringRecordingScreenEnable = true
             btnRecordingIndicator.isHidden = false
             Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(disableIndicatorScaling), userInfo: nil, repeats: false)
@@ -612,6 +637,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AV
             btnRecordingIndicator.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             isCoveringRecordingScreenEnable = false
             btnRecordingIndicator.isHidden = true
+            lblRec.isHidden = true
         }
     }
     
